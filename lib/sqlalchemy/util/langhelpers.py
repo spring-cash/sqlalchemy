@@ -1394,8 +1394,6 @@ def memoized_instancemethod(fn: _F) -> _F:
         def memo(*a, **kw):
             return result
 
-        memo.__name__ = fn.__name__
-        memo.__doc__ = fn.__doc__
         self.__dict__[fn.__name__] = memo
         return result
 
@@ -1470,8 +1468,6 @@ class HasMemoized:
             def memo(*a, **kw):
                 return result
 
-            memo.__name__ = fn.__name__
-            memo.__doc__ = fn.__doc__
             self.__dict__[fn.__name__] = memo
             self._memoized_keys |= {fn.__name__}
             return result
@@ -1522,12 +1518,9 @@ class MemoizedSlots:
                 def memo(*a, **kw):
                     return result
 
-                memo.__name__ = meth.__name__
-                memo.__doc__ = meth.__doc__
                 setattr(self, key, memo)
                 return result
 
-            oneshot.__doc__ = meth.__doc__
             return oneshot
         else:
             return self._fallback_getattr(key)
